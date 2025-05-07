@@ -19179,6 +19179,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cliff_05 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3767358828197824250, guid: 7df3af01473dd7841ae339df250b9cd8,
+        type: 3}
+      propertyPath: m_LODs.Array.data[0].renderers.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3767358828197824250, guid: 7df3af01473dd7841ae339df250b9cd8,
+        type: 3}
+      propertyPath: m_LODs.Array.data[1].renderers.Array.data[0].renderer
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3767358828197824251, guid: 7df3af01473dd7841ae339df250b9cd8,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -19247,10 +19257,12 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3767358828263198984, guid: 7df3af01473dd7841ae339df250b9cd8, type: 3}
+    - {fileID: 3767358828098247757, guid: 7df3af01473dd7841ae339df250b9cd8, type: 3}
+    - {fileID: 3767358826947127235, guid: 7df3af01473dd7841ae339df250b9cd8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3767358828197824251, guid: 7df3af01473dd7841ae339df250b9cd8,
         type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 1868359963}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7df3af01473dd7841ae339df250b9cd8, type: 3}
