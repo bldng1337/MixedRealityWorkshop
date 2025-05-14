@@ -25,7 +25,7 @@ public class RuneController : MonoBehaviour
         var dir= Vector3.up;//transform.rotation * 
         RaycastHit hitInfo=new RaycastHit();
         Debug.DrawRay(transform.position, dir * range,Color.red);
-        Debug.Log(transform.position);
+        //Debug.Log(transform.position);
         //Physics.Raycast(transform.position, dir, out hitInfo, range, LayerMask.NameToLayer("RuneSocket"));
         //if (hitInfo.collider == null)
             return null;
