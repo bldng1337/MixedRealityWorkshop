@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/FreeMove_Finish.unity
+    path: Assets/Scenes/RuneTestGround.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1965e2ddcb55b3f4994931bf2d5b5b3b,

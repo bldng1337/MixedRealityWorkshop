@@ -12,6 +12,7 @@ TagManager:
   - Path
   - CanPlace
   - CantPlace
+  - GameManager
   layers:
   - Default
   - TransparentFX

@@ -40,7 +40,9 @@ public class RuneConnection : MonoBehaviour
     {
         if (type != Type.Output) return;
         if (connected == null) return;
+        if (buffer==null) return;
         connected.buffer.add(buffer);
+        connected.buffer.energy.ApplyLineRenderer(connect);
     }
 
     // Update is called once per frame
@@ -66,11 +68,8 @@ public class RuneConnection : MonoBehaviour
 
     public void PullConnection(Transform transform)
     {
-        if (connected != null || connect==null)
-        {
-            return;
-        }
-        connect_to= transform;
+        VoidConnection();
+        connect_to = transform;
     }
     
     public void ResetConnection()
@@ -97,6 +96,7 @@ public class RuneConnection : MonoBehaviour
     {
         if(other == null) return false;
         if (other.type == type) return false;
+        other.VoidConnection();
         other.connected = this;
         connected = other;
         if(type == Type.Output)

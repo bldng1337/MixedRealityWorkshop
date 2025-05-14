@@ -17,12 +17,12 @@ public class ConnectionController : MonoBehaviour
         dbg.material = new Material(Shader.Find("Sprites/Default"));
 
         // Set the color
-        dbg.startColor = Color.red;
-        dbg.endColor = Color.green;
+        dbg.startColor = Color.magenta;
+        dbg.endColor = Color.magenta;
 
         // Set the width
-        dbg.startWidth = 0.01f;
-        dbg.endWidth = 0.01f;
+        dbg.startWidth = 0.001f;
+        dbg.endWidth = 0.001f;
 
 
         inputActions = new XRInputActions();
@@ -62,7 +62,7 @@ public class ConnectionController : MonoBehaviour
 
     RuneConnection LookedAt()
     {
-        const float range = 4;
+        const float range = 8;
         var dir = transform.rotation * Vector3.forward;
         RaycastHit hitInfo = new RaycastHit();
         dbg.positionCount = 2;

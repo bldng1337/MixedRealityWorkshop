@@ -4,6 +4,7 @@ using System.Data;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Unity.Collections.Unicode;
 
 public class RuneController : MonoBehaviour
 {
@@ -21,24 +22,24 @@ public class RuneController : MonoBehaviour
         inputActions = new XRInputActions();
         inputActions.CustomLeft.Enable();
         inputActions.CustomLeft.Secondary.performed += PlaceRune;
-        inputActions.CustomLeft.Primary.performed += SwitchRune;
+        inputActions.CustomLeft.Grip.performed += SwitchRune;
         dbg = gameObject.AddComponent<LineRenderer>();
         dbg.material = new Material(Shader.Find("Sprites/Default"));
 
         // Set the color
-        dbg.startColor = Color.red;
-        dbg.endColor = Color.green;
-        
+        dbg.startColor = Color.magenta;
+        dbg.endColor = Color.magenta;
+
         // Set the width
-        dbg.startWidth = 0.01f;
-        dbg.endWidth = 0.01f;
+        dbg.startWidth = 0.001f;
+        dbg.endWidth = 0.001f;
         Select(0);
     }
 
     private void SwitchRune(InputAction.CallbackContext context)
     {
-        Debug.Log("SwitchRune");
-        Select(selected++);
+        Debug.Log("SwitchRune "+ selected);
+        Select(selected+1);
     }
 
     private void PlaceRune(InputAction.CallbackContext context)
@@ -54,12 +55,14 @@ public class RuneController : MonoBehaviour
 
     void Select(int slot)
     {
+        //Debug.Log($"Select {slot}");
         if (slot == selected) return;
         if (slot >= runes.Length)
         {
+            Debug.Log("Yee");
             slot = 0;
         }
-        Debug.Log("Selected " + slot);
+        //Debug.Log("Selected " + slot);
         selected = slot;
         if (rune != null)
         {
@@ -68,28 +71,22 @@ public class RuneController : MonoBehaviour
         //Debug.Log("Got Rune");
         rune = Instantiate(runes[selected], gameObject.transform);
         rune.transform.localPosition = Vector3.forward * 0.1f;
+        rune.transform.localScale = rune.transform.localScale * 0.1f;
         rune.transform.localRotation = Quaternion.Euler(new Vector3(-90, 0, 0));
     }
 
 
     RuneSocket LookedAt()
     {
-        const float range= 4;
+        const float range= 8;
         Transform transform = GetComponent<Transform>();
         var dir= transform.rotation*Vector3.forward;
         RaycastHit hitInfo=new RaycastHit();
-<<<<<<< HEAD
         dbg.positionCount = 2;
         dbg.SetPosition(0, transform.position);
         dbg.SetPosition(1, transform.position+dir*range);
         Physics.Raycast(transform.position, dir, out hitInfo, range, 1<<6);
         if (hitInfo.collider == null)
-=======
-        Debug.DrawRay(transform.position, dir * range,Color.red);
-        //Debug.Log(transform.position);
-        //Physics.Raycast(transform.position, dir, out hitInfo, range, LayerMask.NameToLayer("RuneSocket"));
-        //if (hitInfo.collider == null)
->>>>>>> origin/main
             return null;
         return hitInfo.collider.GetComponent<RuneSocket>();
     }

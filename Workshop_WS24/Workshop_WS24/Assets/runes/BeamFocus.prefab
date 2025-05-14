@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f2afe2812659ba345acc385cfdc80b81, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 5091652157480600865}
   - component: {fileID: 998860941603744559}
   - component: {fileID: 8871545262590844838}
-  - component: {fileID: 953990707551741432}
+  - component: {fileID: 8125219085469965956}
   m_Layer: 0
   m_Name: BeamFocus
   m_TagString: Untagged
@@ -204,7 +204,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.017433906, y: 0.017433906, z: 0.017433906}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5441690564933736837}
@@ -238,7 +238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 159eeda13faa2754ca872fef666750ca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,7 +282,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &953990707551741432
+--- !u!114 &8125219085469965956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,7 +291,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7674404067708097004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b30f91ad657435449f7e0e2d1e3a0ad, type: 3}
+  m_Script: {fileID: 11500000, guid: b6cd62e31cd14f044a97f1774c5dacd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  output: {fileID: 0}
+  input: {fileID: 2086224309896656664}
+  range: 30
