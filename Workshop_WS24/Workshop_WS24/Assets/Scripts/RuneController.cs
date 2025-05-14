@@ -78,11 +78,18 @@ public class RuneController : MonoBehaviour
         Transform transform = GetComponent<Transform>();
         var dir= transform.rotation*Vector3.forward;
         RaycastHit hitInfo=new RaycastHit();
+<<<<<<< HEAD
         dbg.positionCount = 2;
         dbg.SetPosition(0, transform.position);
         dbg.SetPosition(1, transform.position+dir*range);
         Physics.Raycast(transform.position, dir, out hitInfo, range, 1<<6);
         if (hitInfo.collider == null)
+=======
+        Debug.DrawRay(transform.position, dir * range,Color.red);
+        //Debug.Log(transform.position);
+        //Physics.Raycast(transform.position, dir, out hitInfo, range, LayerMask.NameToLayer("RuneSocket"));
+        //if (hitInfo.collider == null)
+>>>>>>> origin/main
             return null;
         return hitInfo.collider.GetComponent<RuneSocket>();
     }
