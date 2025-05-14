@@ -2860,6 +2860,114 @@ public partial class @XRInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""CustomLeft"",
+            ""id"": ""0baac2c6-4215-4816-9831-510b03e2f51e"",
+            ""actions"": [
+                {
+                    ""name"": ""Trigger"",
+                    ""type"": ""Button"",
+                    ""id"": ""218aa465-982f-43ec-9a20-f787f46b8c89"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grip"",
+                    ""type"": ""Button"",
+                    ""id"": ""6dc94610-3430-43f2-a803-8e48b0508bab"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Primary"",
+                    ""type"": ""Button"",
+                    ""id"": ""34ee8b45-1bc0-4924-b74c-beed37d4d5e6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Secondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""510baea4-212f-48c4-b22e-f19aa2806f6b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Thumbstick"",
+                    ""type"": ""Value"",
+                    ""id"": ""c6287864-1046-4577-a30d-3a7ee2993b7b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8137cbea-0df2-4a3e-bb52-e5e09a0ddd3a"",
+                    ""path"": ""<XRController>{LeftHand}/{TriggerButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Trigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4768fd09-0d3c-4a46-85a9-5f27bdf189bc"",
+                    ""path"": ""<XRController>{LeftHand}/thumbstick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Thumbstick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abfa8611-5c03-4e93-9856-1129a5dc4209"",
+                    ""path"": ""<XRController>{LeftHand}/{SecondaryButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Secondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af916f6a-9f19-4b5a-baaa-b9df439c3485"",
+                    ""path"": ""<XRController>{LeftHand}/{PrimaryButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Primary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60d217c2-a92e-4cd2-a2a0-12e632149724"",
+                    ""path"": ""<XRController>{LeftHand}/{GripButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -3038,6 +3146,13 @@ public partial class @XRInputActions: IInputActionCollection2, IDisposable
         m_CustomRight_Primary = m_CustomRight.FindAction("Primary", throwIfNotFound: true);
         m_CustomRight_Secondary = m_CustomRight.FindAction("Secondary", throwIfNotFound: true);
         m_CustomRight_Thumbstick = m_CustomRight.FindAction("Thumbstick", throwIfNotFound: true);
+        // CustomLeft
+        m_CustomLeft = asset.FindActionMap("CustomLeft", throwIfNotFound: true);
+        m_CustomLeft_Trigger = m_CustomLeft.FindAction("Trigger", throwIfNotFound: true);
+        m_CustomLeft_Grip = m_CustomLeft.FindAction("Grip", throwIfNotFound: true);
+        m_CustomLeft_Primary = m_CustomLeft.FindAction("Primary", throwIfNotFound: true);
+        m_CustomLeft_Secondary = m_CustomLeft.FindAction("Secondary", throwIfNotFound: true);
+        m_CustomLeft_Thumbstick = m_CustomLeft.FindAction("Thumbstick", throwIfNotFound: true);
     }
 
     ~@XRInputActions()
@@ -3052,6 +3167,7 @@ public partial class @XRInputActions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_XRIUI.enabled, "This will cause a leak and performance issues, XRInputActions.XRIUI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_TouchscreenGestures.enabled, "This will cause a leak and performance issues, XRInputActions.TouchscreenGestures.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_CustomRight.enabled, "This will cause a leak and performance issues, XRInputActions.CustomRight.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_CustomLeft.enabled, "This will cause a leak and performance issues, XRInputActions.CustomLeft.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -4249,6 +4365,84 @@ public partial class @XRInputActions: IInputActionCollection2, IDisposable
         }
     }
     public CustomRightActions @CustomRight => new CustomRightActions(this);
+
+    // CustomLeft
+    private readonly InputActionMap m_CustomLeft;
+    private List<ICustomLeftActions> m_CustomLeftActionsCallbackInterfaces = new List<ICustomLeftActions>();
+    private readonly InputAction m_CustomLeft_Trigger;
+    private readonly InputAction m_CustomLeft_Grip;
+    private readonly InputAction m_CustomLeft_Primary;
+    private readonly InputAction m_CustomLeft_Secondary;
+    private readonly InputAction m_CustomLeft_Thumbstick;
+    public struct CustomLeftActions
+    {
+        private @XRInputActions m_Wrapper;
+        public CustomLeftActions(@XRInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Trigger => m_Wrapper.m_CustomLeft_Trigger;
+        public InputAction @Grip => m_Wrapper.m_CustomLeft_Grip;
+        public InputAction @Primary => m_Wrapper.m_CustomLeft_Primary;
+        public InputAction @Secondary => m_Wrapper.m_CustomLeft_Secondary;
+        public InputAction @Thumbstick => m_Wrapper.m_CustomLeft_Thumbstick;
+        public InputActionMap Get() { return m_Wrapper.m_CustomLeft; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CustomLeftActions set) { return set.Get(); }
+        public void AddCallbacks(ICustomLeftActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CustomLeftActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CustomLeftActionsCallbackInterfaces.Add(instance);
+            @Trigger.started += instance.OnTrigger;
+            @Trigger.performed += instance.OnTrigger;
+            @Trigger.canceled += instance.OnTrigger;
+            @Grip.started += instance.OnGrip;
+            @Grip.performed += instance.OnGrip;
+            @Grip.canceled += instance.OnGrip;
+            @Primary.started += instance.OnPrimary;
+            @Primary.performed += instance.OnPrimary;
+            @Primary.canceled += instance.OnPrimary;
+            @Secondary.started += instance.OnSecondary;
+            @Secondary.performed += instance.OnSecondary;
+            @Secondary.canceled += instance.OnSecondary;
+            @Thumbstick.started += instance.OnThumbstick;
+            @Thumbstick.performed += instance.OnThumbstick;
+            @Thumbstick.canceled += instance.OnThumbstick;
+        }
+
+        private void UnregisterCallbacks(ICustomLeftActions instance)
+        {
+            @Trigger.started -= instance.OnTrigger;
+            @Trigger.performed -= instance.OnTrigger;
+            @Trigger.canceled -= instance.OnTrigger;
+            @Grip.started -= instance.OnGrip;
+            @Grip.performed -= instance.OnGrip;
+            @Grip.canceled -= instance.OnGrip;
+            @Primary.started -= instance.OnPrimary;
+            @Primary.performed -= instance.OnPrimary;
+            @Primary.canceled -= instance.OnPrimary;
+            @Secondary.started -= instance.OnSecondary;
+            @Secondary.performed -= instance.OnSecondary;
+            @Secondary.canceled -= instance.OnSecondary;
+            @Thumbstick.started -= instance.OnThumbstick;
+            @Thumbstick.performed -= instance.OnThumbstick;
+            @Thumbstick.canceled -= instance.OnThumbstick;
+        }
+
+        public void RemoveCallbacks(ICustomLeftActions instance)
+        {
+            if (m_Wrapper.m_CustomLeftActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICustomLeftActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CustomLeftActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CustomLeftActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CustomLeftActions @CustomLeft => new CustomLeftActions(this);
     private int m_GenericXRControllerSchemeIndex = -1;
     public InputControlScheme GenericXRControllerScheme
     {
@@ -4394,6 +4588,14 @@ public partial class @XRInputActions: IInputActionCollection2, IDisposable
         void OnTouchRelease(InputAction.CallbackContext context);
     }
     public interface ICustomRightActions
+    {
+        void OnTrigger(InputAction.CallbackContext context);
+        void OnGrip(InputAction.CallbackContext context);
+        void OnPrimary(InputAction.CallbackContext context);
+        void OnSecondary(InputAction.CallbackContext context);
+        void OnThumbstick(InputAction.CallbackContext context);
+    }
+    public interface ICustomLeftActions
     {
         void OnTrigger(InputAction.CallbackContext context);
         void OnGrip(InputAction.CallbackContext context);

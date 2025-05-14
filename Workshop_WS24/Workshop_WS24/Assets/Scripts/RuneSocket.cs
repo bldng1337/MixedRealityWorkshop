@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class RuneSocket : MonoBehaviour
 {
-    public Rune rune;
+    public GameObject rune;
 
     // Start is called before the first frame update
     void Start()
@@ -16,5 +17,15 @@ public class RuneSocket : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SocketRune(GameObject rune)
+    {
+        if (this.rune != null)
+        {
+            Destroy(this.rune);
+            this.rune = null;
+        }
+        this.rune = Instantiate(rune, transform);
     }
 }
