@@ -141,11 +141,18 @@ public struct MoveEnemiesJob : IJobParallelForTransform
     {
         if (nodeIndex[index] < nodePositions.Length)
         {
-            Debug.Log("Enemy reached the end of the path");
             Vector3 positionsToMoveTo = nodePositions[nodeIndex[index]];
+            Vector3 direction = positionsToMoveTo - transform.position;
 
+            // Move the enemy towards the target position
             transform.position = Vector3.MoveTowards(transform.position, positionsToMoveTo, enemySpeeds[index] * deltaTime);
 
+            // Rotate the enemy to face the direction they are moving
+            if (direction != Vector3.zero) // Avoid errors when direction is zero
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
+            
             if(transform.position == positionsToMoveTo)
             {
                 nodeIndex[index]++;
