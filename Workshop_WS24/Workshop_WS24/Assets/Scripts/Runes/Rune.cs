@@ -9,8 +9,8 @@ using UnityEngine;
 
 public abstract class Rune : MonoBehaviour
 {
-    public EnergyBuffer mainBuffer=new EnergyBuffer();
-    
+    public EnergyBuffer mainBuffer = new EnergyBuffer();
+
     protected void RegisterConnection(RuneConnection con)
     {
         con.rune = this;
@@ -28,38 +28,14 @@ public abstract class Energy
         this.chaos = chaos;
     }
 
-    public abstract Energy SplitOff(float amount);
-
-    public abstract void ApplyLineRenderer(LineRenderer lineRenderer);
-
-    public static Energy FromType(Type t,float value,float chaos)
+    public abstract Color color
     {
-        if (t == typeof(Fire)) return new Fire(value, chaos);
-        if (t == typeof(Water)) return new Water(value, chaos);
-        if (t == typeof(Steam)) return new Steam(value, chaos);
-        return null;
-    }
-}
-
-public class Fire:Energy
-{
-    public Fire(float value, float chaos) : base(value, chaos)
-    {
+        get;
     }
 
-    public override void ApplyLineRenderer(LineRenderer lineRenderer)
-    {
-        
-        lineRenderer.startWidth = Mathf.Min(0.3f,Mathf.Max(0.05f, value));
-        lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
-        lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.yellow;
-    }
-
-    override
     public Energy SplitOff(float amount)
     {
-        var newenergy=new Fire(Mathf.Min(amount, value), chaos);
+        var newenergy = FromType(this.GetType(), Mathf.Min(amount, value), chaos);
         value -= amount;
         if (value <= 0)
         {
@@ -68,12 +44,49 @@ public class Fire:Energy
         }
         return newenergy;
     }
+
+    public abstract void ApplyLineRenderer(LineRenderer lineRenderer);
+
+    public static Energy FromType(Type t, float value, float chaos)
+    {
+        if (t == typeof(Fire)) return new Fire(value, chaos);
+        if (t == typeof(Water)) return new Water(value, chaos);
+        if (t == typeof(Steam)) return new Steam(value, chaos);
+        return null;
+    }
+    public abstract void Attack(Enemy e);
 }
 
-public class Water : Energy {
+public class Fire : Energy
+{
+    public Fire(float value, float chaos) : base(value, chaos)
+    {
+    }
+
+    public override Color color => Color.red;
+
+    public override void ApplyLineRenderer(LineRenderer lineRenderer)
+    {
+
+        lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.yellow;
+    }
+
+    public override void Attack(Enemy e)
+    {
+
+    }
+}
+
+public class Water : Energy
+{
     public Water(float value, float chaos) : base(value, chaos)
     {
     }
+
+    public override Color color => Color.blue;
 
     public override void ApplyLineRenderer(LineRenderer lineRenderer)
     {
@@ -83,17 +96,9 @@ public class Water : Energy {
         lineRenderer.endColor = Color.blue;
     }
 
-    override
-    public Energy SplitOff(float amount)
+    public override void Attack(Enemy e)
     {
-        var newenergy = new Water(Mathf.Min(amount, value), chaos);
-        value -= amount;
-        if (value <= 0)
-        {
-            value = 0;
-            chaos = 0;
-        }
-        return newenergy;
+
     }
 }
 
@@ -103,6 +108,8 @@ public class Steam : Energy
     {
     }
 
+    public override Color color => new Color(0.6f, 0.6f, 0.9f);
+
     public override void ApplyLineRenderer(LineRenderer lineRenderer)
     {
         lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
@@ -111,36 +118,28 @@ public class Steam : Energy
         lineRenderer.endColor = Color.yellow;
     }
 
-    override
-    public Energy SplitOff(float amount)
+    public override void Attack(Enemy e)
     {
-        var newenergy = new Steam(Mathf.Min(amount, value), chaos);
-        value -= amount;
-        if (value <= 0)
-        {
-            value = 0;
-            chaos = 0;
-        }
-        return newenergy;
+
     }
 }
 
 public class EnergyBuffer
 {
     public Energy energy;
-    public float cap = 1;
+    public float cap = 2;
 
     public void add(Energy other)
     {
         if (other == null) return;
-        if(energy == null || energy.value==0)
+        if (energy == null || energy.value == 0)
         {
             energy = other.SplitOff(Mathf.Min(other.value, cap));
             return;
         }
         if (other.GetType() != energy.GetType()) return;
-        energy.value += Mathf.Min(other.value / (1+other.chaos), cap-energy.value);
-        other.value = Mathf.Max(other.value-cap,0);
+        energy.value += Mathf.Min(other.value / (1 + other.chaos), cap - energy.value);
+        other.value = Mathf.Max(other.value - cap, 0);
         energy.chaos += other.chaos;
         other.chaos = 0;
     }
@@ -151,5 +150,19 @@ public class EnergyBuffer
     public Energy SplitOff(float amount)
     {
         return energy.SplitOff(amount);
+    }
+    public void ApplyMaterial(Material material)
+    {
+        if (material == null) return;
+        if (energy == null)
+        {
+            material.SetFloat("_energy", 0);
+            material.SetFloat("_chaos", 0);
+            material.SetColor("_energy_color", Color.white);
+            return;
+        }
+        material.SetFloat("_energy", energy.value);
+        material.SetFloat("_chaos", energy.chaos);
+        material.SetColor("_energy_color", energy.color);
     }
 }

@@ -13,16 +13,15 @@ public class ConnectionController : MonoBehaviour
 
     void Start()
     {
-        dbg = gameObject.AddComponent<LineRenderer>();
-        dbg.material = new Material(Shader.Find("Sprites/Default"));
+        dbg = GetComponent<LineRenderer>();
 
         // Set the color
-        dbg.startColor = Color.magenta;
-        dbg.endColor = Color.magenta;
+        dbg.startColor = Color.white;
+        dbg.endColor = Color.white;
 
         // Set the width
-        dbg.startWidth = 0.001f;
-        dbg.endWidth = 0.001f;
+        dbg.startWidth = 0.01f;
+        dbg.endWidth = 0.01f;
 
 
         inputActions = new XRInputActions();
@@ -33,10 +32,31 @@ public class ConnectionController : MonoBehaviour
 
     void Update()
     {
-        if (current==null) return;
-        dbg.positionCount = 2;
+        const float range = 8;
+        var dir = transform.rotation * Vector3.forward;
+        if (current == null)
+        {
+            dbg.startWidth = 0.01f;
+            dbg.endWidth = 0.01f;
+            dbg.positionCount = 2;
+            dbg.SetPosition(0, transform.position);
+            dbg.SetPosition(1, transform.position + dir * range);
+            return;
+        }
+        dbg.startWidth = 0.1f;
+        dbg.endWidth = 0.1f;
+        dbg.positionCount = 3;
         dbg.SetPosition(0, transform.position);
-        dbg.SetPosition(1, current.transform.position);
+        RaycastHit hitInfo = new RaycastHit();
+        if(Physics.Raycast(transform.position, dir, out hitInfo, range))
+        {
+            dbg.SetPosition(1, hitInfo.point);
+        }
+        else
+        {
+            dbg.SetPosition(1, transform.position + dir * range);
+        }
+        dbg.SetPosition(2, current.transform.position);
     }
 
 
@@ -46,16 +66,22 @@ public class ConnectionController : MonoBehaviour
         if (current == null) return;
         if (current.GetConnectionType() != RuneConnection.Type.Output)
         {
+            if (current.GetConnection() != null)
+            {
+                current=current.GetConnection();
+                current.VoidConnection();
+                return;
+            }
             current = null;
             return;
         }
-        current.PullConnection(transform);
+        //current.PullConnection(transform);
     }
 
     private void Disconnect(InputAction.CallbackContext context)
     {
         if (current == null) return;
-        current.ResetConnection();
+        //current.ResetConnection();
         current.HandleConnect(LookedAt());
         current = null;
     }
@@ -64,10 +90,10 @@ public class ConnectionController : MonoBehaviour
     {
         const float range = 8;
         var dir = transform.rotation * Vector3.forward;
-        RaycastHit hitInfo = new RaycastHit();
         dbg.positionCount = 2;
         dbg.SetPosition(0, transform.position);
         dbg.SetPosition(1, transform.position + dir * range);
+        RaycastHit hitInfo = new RaycastHit();
         Physics.Raycast(transform.position, dir, out hitInfo, range, 1 << 7);
         if (hitInfo.collider == null) return null;
         return hitInfo.collider.GetComponent<RuneConnection>();

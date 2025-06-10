@@ -23,28 +23,25 @@ public class RuneController : MonoBehaviour
         inputActions.CustomLeft.Enable();
         inputActions.CustomLeft.Secondary.performed += PlaceRune;
         inputActions.CustomLeft.Grip.performed += SwitchRune;
-        dbg = gameObject.AddComponent<LineRenderer>();
-        dbg.material = new Material(Shader.Find("Sprites/Default"));
+        dbg = GetComponent<LineRenderer>();
 
         // Set the color
-        dbg.startColor = Color.magenta;
-        dbg.endColor = Color.magenta;
+        dbg.startColor = Color.white;
+        dbg.endColor = Color.white;
 
         // Set the width
-        dbg.startWidth = 0.001f;
-        dbg.endWidth = 0.001f;
+        dbg.startWidth = 0.01f;
+        dbg.endWidth = 0.01f;
         Select(0);
     }
 
     private void SwitchRune(InputAction.CallbackContext context)
     {
-        Debug.Log("SwitchRune "+ selected);
         Select(selected+1);
     }
 
     private void PlaceRune(InputAction.CallbackContext context)
     {
-        //Debug.Log("PlaceRune");
         if (selected < 0) return;
         var socket = LookedAt();
         if (socket == null) return;
@@ -55,20 +52,16 @@ public class RuneController : MonoBehaviour
 
     void Select(int slot)
     {
-        //Debug.Log($"Select {slot}");
         if (slot == selected) return;
         if (slot >= runes.Length)
         {
-            Debug.Log("Yee");
             slot = 0;
         }
-        //Debug.Log("Selected " + slot);
         selected = slot;
         if (rune != null)
         {
             Destroy(rune);
         }
-        //Debug.Log("Got Rune");
         rune = Instantiate(runes[selected], gameObject.transform);
         rune.transform.localPosition = Vector3.forward * 0.1f;
         rune.transform.localScale = rune.transform.localScale * 0.1f;
@@ -82,9 +75,6 @@ public class RuneController : MonoBehaviour
         Transform transform = GetComponent<Transform>();
         var dir= transform.rotation*Vector3.forward;
         RaycastHit hitInfo=new RaycastHit();
-        dbg.positionCount = 2;
-        dbg.SetPosition(0, transform.position);
-        dbg.SetPosition(1, transform.position+dir*range);
         Physics.Raycast(transform.position, dir, out hitInfo, range, 1<<6);
         if (hitInfo.collider == null)
             return null;
@@ -94,6 +84,12 @@ public class RuneController : MonoBehaviour
 
     void Update()
     {
+        const float range = 8;
+        Transform transform = GetComponent<Transform>();
+        var dir = transform.rotation * Vector3.forward;
+        dbg.positionCount = 2;
+        dbg.SetPosition(0, transform.position);
+        dbg.SetPosition(1, transform.position + dir * range);
         //LookedAt();
         //Debug.Log(LookedAt());
     }

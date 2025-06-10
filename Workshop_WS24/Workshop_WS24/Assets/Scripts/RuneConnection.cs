@@ -22,16 +22,22 @@ public class RuneConnection : MonoBehaviour
 
     public EnergyBuffer buffer;
 
+    Material material;
+
     void Start()
     {
+        material = GetComponent<MeshRenderer>().material;
         switch (type)
         {
             case Type.Input:
-                buffer=new EnergyBuffer();
+                buffer = new EnergyBuffer();
                 break;
             case Type.Output:
                 connect = GetComponent<LineRenderer>();
                 connect.positionCount = 0;
+                material.SetFloat("_energy", 0);
+                material.SetFloat("_chaos", 0);
+                material.SetColor("_energy_color", Color.white);
                 break;
         }
     }
@@ -40,7 +46,7 @@ public class RuneConnection : MonoBehaviour
     {
         if (type != Type.Output) return;
         if (connected == null) return;
-        if (buffer==null) return;
+        if (buffer == null) return;
         connected.buffer.add(buffer);
         connected.buffer.energy.ApplyLineRenderer(connect);
     }
@@ -48,6 +54,16 @@ public class RuneConnection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (buffer != null && material != null)
+        {
+            buffer.ApplyMaterial(material);
+        }
+        else
+        {
+            material.SetFloat("_energy", 1);
+            material.SetFloat("_chaos", 0);
+            material.SetColor("_energy_color", Color.white);
+        }
         if (connect == null) return;
         if (connect_to != null)
         {
@@ -71,7 +87,7 @@ public class RuneConnection : MonoBehaviour
         VoidConnection();
         connect_to = transform;
     }
-    
+
     public void ResetConnection()
     {
         if (connected != null || connect == null)
@@ -94,12 +110,12 @@ public class RuneConnection : MonoBehaviour
 
     public bool HandleConnect(RuneConnection other)
     {
-        if(other == null) return false;
+        if (other == null) return false;
         if (other.type == type) return false;
         other.VoidConnection();
         other.connected = this;
         connected = other;
-        if(type == Type.Output)
+        if (type == Type.Output)
         {
             connect_to = other.transform;
         }
@@ -108,5 +124,10 @@ public class RuneConnection : MonoBehaviour
             other.connect_to = transform;
         }
         return true;
+    }
+
+    public RuneConnection GetConnection()
+    {
+        return connected;
     }
 }

@@ -12,18 +12,22 @@ public class GeneratorRune : Rune
         Water
     }
     [SerializeField] RuneConnection output;
-    [SerializeField] EnergyType energyType= EnergyType.Fire;
-    [SerializeField] float genamount = 0.01f;
+    [SerializeField] EnergyType energyType = EnergyType.Fire;
+    [SerializeField] float genamount = 0.1f;
     [SerializeField] float randomamount = 0f;
 
+    Material material;
     void Start()
     {
         RegisterConnection(output);
+        material = GetComponent<MeshRenderer>().material;
+        mainBuffer.cap = 200;
     }
 
     
     void FixedUpdate()
     {
+        if (output == null) return;
         switch (energyType)
         {
             case EnergyType.Fire:
@@ -33,7 +37,8 @@ public class GeneratorRune : Rune
                 mainBuffer.add(new Water(genamount, 0));
                 break;
         }
-        if (output == null) return;
+        mainBuffer.ApplyMaterial(material);
         output.Push(mainBuffer);
+
     }
 }

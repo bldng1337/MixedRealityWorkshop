@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class CombineRune : Rune
 {
-    
+
     [SerializeField] RuneConnection input;
 
     [SerializeField] RuneConnection input1;
@@ -54,13 +54,13 @@ public class CombineRune : Rune
             float minamountscaled = amounts.Select((x, i) => x / ratio[i]).Min();
             chaos += amounts.Select((x, i) => x - (minamountscaled * ratio[i])).Sum() * (this.chaos / 100);
             float value = amounts.Select((x, i) => (minamountscaled * ratio[i])).Sum();
-            return Energy.FromType(output,value,chaos);
+            return Energy.FromType(output, value, chaos);
         }
 
     }
 
 
-    private static readonly Recipe[] recipies = new Recipe[] { 
+    private static readonly Recipe[] recipies = new Recipe[] {
         new Recipe(new Type[] {
             typeof(Water), typeof(Fire)
         },new float[] {
@@ -68,28 +68,30 @@ public class CombineRune : Rune
         },typeof(Steam),5),
     };
 
-
+    Material material;
     void Start()
     {
         RegisterConnection(output);
         RegisterConnection(input);
         RegisterConnection(input1);
+        material = GetComponent<MeshRenderer>().material;
         mainBuffer.cap = 999;
     }
 
 
     void FixedUpdate()
     {
-        if(input.buffer==null || input1.buffer==null) return;
-        Energy[] energies= new Energy[] {
+        if (input.buffer == null || input1.buffer == null) return;
+        Energy[] energies = new Energy[] {
             input.buffer.energy,
             input1.buffer.energy,
         };
-        if(energies.Any((x)=>x==null)) return;
-        var recipe=recipies.Where((x) => x.CanApply(energies)).FirstOrDefault();
+        if (energies.Any((x) => x == null)) return;
+        var recipe = recipies.Where((x) => x.CanApply(energies)).FirstOrDefault();
         if (recipe == null) return;
-        if (mainBuffer.energy!=null && mainBuffer.energy.GetType() != recipe.output) return;
+        if (mainBuffer.energy != null && mainBuffer.energy.GetType() != recipe.output) return;
         mainBuffer.add(recipe.Apply(energies));
+        mainBuffer.ApplyMaterial(material);
         foreach (var energy in energies)
         {
             energy.value = 0;
