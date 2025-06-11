@@ -75,7 +75,7 @@ public class CombineRune : Rune
         RegisterConnection(input);
         RegisterConnection(input1);
         material = GetComponent<MeshRenderer>().material;
-        mainBuffer.cap = 999;
+        //mainBuffer.cap = 999;
     }
 
 

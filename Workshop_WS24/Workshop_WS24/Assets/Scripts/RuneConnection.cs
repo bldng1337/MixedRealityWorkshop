@@ -42,6 +42,15 @@ public class RuneConnection : MonoBehaviour
         }
     }
 
+    public void PushEnergy(Energy energy)
+    {
+        if (type != Type.Output) return;
+        if (connected == null) return;
+        if (buffer == null) return;
+        connected.buffer.add(energy);
+        connected.buffer.energy.ApplyLineRenderer(connect);
+    }
+
     public void Push(EnergyBuffer buffer)
     {
         if (type != Type.Output) return;
