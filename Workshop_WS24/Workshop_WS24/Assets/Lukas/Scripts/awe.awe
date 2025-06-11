@@ -1,0 +1,83 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TowerTargeting : MonoBehaviour
+{
+    public float range = 5f;
+    public float damage = 10f;
+    public float attackRate = 1f;
+
+    private float attackCooldown;
+    private Enemy currentTarget;
+    public DamageType damageType = DamageType.Fire;
+
+    struct EnemyData
+    {
+        public EnemyData(Vector3 position, int nodeIndex, float health)
+        {
+            EnemyPosition = position;
+            NodeIndex = nodeIndex;
+            Health = health;
+        }
+
+        public Vector3 EnemyPosition;
+        public int NodeIndex;
+        public float Health;
+    }
+
+    void Update()
+    {
+        attackCooldown -= Time.deltaTime;
+
+        // If no target or target moved out of range, reacquire
+        if (currentTarget == null || !IsEnemyInRange(currentTarget))
+        {
+            AcquireNewTarget();
+        }
+
+        if (currentTarget != null && attackCooldown <= 0f)
+        {
+            Attack();
+            attackCooldown = 1f / attackRate;
+        }
+    }
+
+    void AcquireNewTarget()
+    {
+        float closestDistance = Mathf.Infinity;
+        Enemy bestCandidate = null;
+
+        foreach (Enemy enemy in EntitySummoner.EnemiesInGame)
+        {
+            float dist = Vector3.Distance(transform.position, enemy.transform.position);
+            if (dist <= range && dist < closestDistance)
+            {
+                closestDistance = dist;
+                bestCandidate = enemy;
+            }
+        }
+
+        currentTarget = bestCandidate;
+    }
+
+    bool IsEnemyInRange(Enemy enemy)
+    {
+        if (enemy == null)
+            return false;
+
+        return Vector3.Distance(transform.position, enemy.transform.position) <= range;
+    }
+
+    void Attack()
+    {
+        if (currentTarget == null) return;
+
+        currentTarget.TakeDamage(damage, damageType);
+
+        if (currentTarget.currentHealth <= 0f)
+        {
+            currentTarget = null;
+        }
+    }
+}
