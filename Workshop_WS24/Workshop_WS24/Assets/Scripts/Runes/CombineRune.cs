@@ -66,6 +66,21 @@ public class CombineRune : Rune
         },new float[] {
             1,1
         },typeof(Steam),5),
+        new Recipe(new Type[] {
+            typeof(Earth), typeof(Fire)
+        },new float[] {
+            1,1
+        },typeof(Magma),5),
+        new Recipe(new Type[] {
+            typeof(Water), typeof(Earth)
+        },new float[] {
+            1,2
+        },typeof(Wood),5),
+        new Recipe(new Type[] {
+            typeof(Water), typeof(Wood)
+        },new float[] {
+            2,1
+        },typeof(Life),5),
     };
 
     Material material;

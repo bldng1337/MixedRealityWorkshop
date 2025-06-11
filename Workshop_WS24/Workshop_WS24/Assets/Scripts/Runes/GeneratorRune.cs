@@ -6,11 +6,6 @@ using UnityEngine;
 
 public class GeneratorRune : Rune
 {
-    enum EnergyType
-    {
-        Fire,
-        Water
-    }
     [SerializeField] RuneConnection output;
     [SerializeField] EnergyType energyType = EnergyType.Fire;
     [SerializeField] float genamount = 0.1f;
@@ -21,22 +16,15 @@ public class GeneratorRune : Rune
     {
         RegisterConnection(output);
         material = GetComponent<MeshRenderer>().material;
-        mainBuffer.cap = 200;
+        mainBuffer.cap*=2;
     }
 
     
     void FixedUpdate()
     {
         if (output == null) return;
-        switch (energyType)
-        {
-            case EnergyType.Fire:
-                mainBuffer.add(new Fire(genamount, 0));
-                break;
-            case EnergyType.Water:
-                mainBuffer.add(new Water(genamount, 0));
-                break;
-        }
+        var amount = genamount + Random.value * randomamount;
+        mainBuffer.add(Energy.FromEnergyType(energyType, genamount, 0));
         mainBuffer.ApplyMaterial(material);
         output.Push(mainBuffer);
 

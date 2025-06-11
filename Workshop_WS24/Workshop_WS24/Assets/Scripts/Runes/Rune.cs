@@ -20,8 +20,14 @@ public enum EnergyType
 {
     Fire,
     Water,
-    Steam
+    Earth,
+    Steam,
+    Magma,
+    Wood,
+    Life
 }
+
+
 
 public abstract class Energy
 {
@@ -81,6 +87,106 @@ public abstract class Energy
     public abstract void Attack(Enemy e);
 }
 
+public class Wood : Energy
+{
+    public Wood(float value, float chaos) : base(value, chaos)
+    {
+    }
+
+    public override Color color => Color.green;
+
+    public override EnergyType type => EnergyType.Wood;
+
+    public override void ApplyLineRenderer(LineRenderer lineRenderer)
+    {
+
+        lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.startColor = Color.green;
+        lineRenderer.endColor = Color.green;
+    }
+
+    public override void Attack(Enemy e)
+    {
+
+    }
+}
+
+public class Earth : Energy
+{
+    public Earth(float value, float chaos) : base(value, chaos)
+    {
+    }
+
+    public override Color color => new Color(0.588f,0.294f,0);
+
+    public override EnergyType type => EnergyType.Earth;
+
+    public override void ApplyLineRenderer(LineRenderer lineRenderer)
+    {
+
+        lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+    }
+
+    public override void Attack(Enemy e)
+    {
+
+    }
+}
+
+public class Magma : Energy
+{
+    public Magma(float value, float chaos) : base(value, chaos)
+    {
+    }
+
+    public override Color color => Color.Lerp(Color.red,Color.black,0.5f);
+
+    public override EnergyType type => EnergyType.Fire;
+
+    public override void ApplyLineRenderer(LineRenderer lineRenderer)
+    {
+
+        lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+    }
+
+    public override void Attack(Enemy e)
+    {
+
+    }
+}
+
+public class Life : Energy
+{
+    public Life(float value, float chaos) : base(value, chaos)
+    {
+    }
+
+    public override Color color => Color.yellow;
+
+    public override EnergyType type => EnergyType.Fire;
+
+    public override void ApplyLineRenderer(LineRenderer lineRenderer)
+    {
+
+        lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
+        lineRenderer.startColor = Color.yellow;
+        lineRenderer.endColor = Color.yellow;
+    }
+
+    public override void Attack(Enemy e)
+    {
+
+    }
+}
+
 public class Fire : Energy
 {
     public Fire(float value, float chaos) : base(value, chaos)
@@ -97,7 +203,7 @@ public class Fire : Energy
         lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
         lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
         lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.yellow;
+        lineRenderer.endColor = Color.red;
     }
 
     public override void Attack(Enemy e)
@@ -144,8 +250,8 @@ public class Steam : Energy
     {
         lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
         lineRenderer.endWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
-        lineRenderer.startColor = Color.yellow;
-        lineRenderer.endColor = Color.yellow;
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
     }
 
     public override void Attack(Enemy e)

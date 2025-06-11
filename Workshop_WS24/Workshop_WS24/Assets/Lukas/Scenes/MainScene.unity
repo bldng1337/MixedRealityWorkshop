@@ -143,7 +143,7 @@ PrefabInstance:
     - target: {fileID: 1023075523622490183, guid: f494805f29bb7854c8fde6acf579a19a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.22
+      value: -5.88
       objectReference: {fileID: 0}
     - target: {fileID: 1023075523622490183, guid: f494805f29bb7854c8fde6acf579a19a,
         type: 3}
@@ -3207,7 +3207,7 @@ PrefabInstance:
     - target: {fileID: 937164584665319824, guid: 60f04ced5ebdeb34fb5914d52d0bb53b,
         type: 3}
       propertyPath: runes.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 937164584665319824, guid: 60f04ced5ebdeb34fb5914d52d0bb53b,
         type: 3}
@@ -3220,6 +3220,18 @@ PrefabInstance:
       propertyPath: runes.Array.data[1]
       value: 
       objectReference: {fileID: 7674404067708097004, guid: 34bd919ee58e07247ae56fea87a52cd4,
+        type: 3}
+    - target: {fileID: 937164584665319824, guid: 60f04ced5ebdeb34fb5914d52d0bb53b,
+        type: 3}
+      propertyPath: runes.Array.data[2]
+      value: 
+      objectReference: {fileID: 7674404067708097004, guid: 1bb9f90f4cc1c40498d212ed236dc9d8,
+        type: 3}
+    - target: {fileID: 937164584665319824, guid: 60f04ced5ebdeb34fb5914d52d0bb53b,
+        type: 3}
+      propertyPath: runes.Array.data[3]
+      value: 
+      objectReference: {fileID: 7674404067708097004, guid: b98e40a23e539be4899020761777d6d9,
         type: 3}
     - target: {fileID: 1263966363943994479, guid: 60f04ced5ebdeb34fb5914d52d0bb53b,
         type: 3}
@@ -23505,7 +23517,7 @@ PrefabInstance:
     - target: {fileID: 1023075523622490183, guid: f494805f29bb7854c8fde6acf579a19a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.08
+      value: -5.81
       objectReference: {fileID: 0}
     - target: {fileID: 1023075523622490183, guid: f494805f29bb7854c8fde6acf579a19a,
         type: 3}
