@@ -67,6 +67,10 @@ public abstract class Energy
         if (t == typeof(Fire)) return new Fire(value, chaos);
         if (t == typeof(Water)) return new Water(value, chaos);
         if (t == typeof(Steam)) return new Steam(value, chaos);
+        if (t == typeof(Earth)) return new Earth(value, chaos);
+        if (t == typeof(Wood)) return new Wood(value, chaos);
+        if (t == typeof(Magma)) return new Magma(value, chaos);
+        if (t == typeof(Life)) return new Life(value, chaos);
         return null;
     }
 
@@ -80,6 +84,14 @@ public abstract class Energy
                 return new Water(value, chaos);
             case EnergyType.Steam:
                 return new Steam(value, chaos);
+            case EnergyType.Earth:
+                return new Earth(value, chaos);
+            case EnergyType.Wood:
+                return new Wood(value, chaos);
+            case EnergyType.Magma:
+                return new Magma(value, chaos);
+            case EnergyType.Life:
+                return new Life(value, chaos);
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
