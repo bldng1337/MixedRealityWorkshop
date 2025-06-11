@@ -779,11 +779,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b53ca5a3adf14e4c8d5a856b8492318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeIndex: 0
+  nodeIndex: 1
   maxHealth: 5
   currentHealth: 0
   speed: 4
   ID: 1
+  weaknesses: []
 --- !u!1 &7820630593710178444
 GameObject:
   m_ObjectHideFlags: 0

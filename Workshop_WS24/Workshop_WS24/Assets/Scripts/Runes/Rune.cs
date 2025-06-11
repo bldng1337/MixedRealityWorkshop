@@ -16,12 +16,21 @@ public abstract class Rune : MonoBehaviour
         con.rune = this;
     }
 }
-
+public enum EnergyType
+{
+    Fire,
+    Water,
+    Steam
+}
 
 public abstract class Energy
 {
     public float value;
     public float chaos;
+    public abstract EnergyType type
+    {
+        get;
+    }
     public Energy(float value, float chaos)
     {
         this.value = value;
@@ -54,6 +63,21 @@ public abstract class Energy
         if (t == typeof(Steam)) return new Steam(value, chaos);
         return null;
     }
+
+    public static Energy FromEnergyType(EnergyType type, float value, float chaos)
+    {
+        switch (type)
+        {
+            case EnergyType.Fire:
+                return new Fire(value, chaos);
+            case EnergyType.Water:
+                return new Water(value, chaos);
+            case EnergyType.Steam:
+                return new Steam(value, chaos);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
+    }
     public abstract void Attack(Enemy e);
 }
 
@@ -64,6 +88,8 @@ public class Fire : Energy
     }
 
     public override Color color => Color.red;
+
+    public override EnergyType type => EnergyType.Fire;
 
     public override void ApplyLineRenderer(LineRenderer lineRenderer)
     {
@@ -88,6 +114,8 @@ public class Water : Energy
 
     public override Color color => Color.blue;
 
+    public override EnergyType type => EnergyType.Water;
+
     public override void ApplyLineRenderer(LineRenderer lineRenderer)
     {
         lineRenderer.startWidth = Mathf.Min(0.3f, Mathf.Max(0.05f, value));
@@ -109,6 +137,8 @@ public class Steam : Energy
     }
 
     public override Color color => new Color(0.6f, 0.6f, 0.9f);
+
+    public override EnergyType type => EnergyType.Steam;
 
     public override void ApplyLineRenderer(LineRenderer lineRenderer)
     {
