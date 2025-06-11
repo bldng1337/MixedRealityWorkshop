@@ -79,10 +79,11 @@ public class LoopManager : MonoBehaviour
             {
                 EntitySummoner.EnemiesInGame[i].nodeIndex = nodeIndices[i];
 
-                //DESPAWN ENEMY AT THE END OF THE PATH
+                //ENEMY AT THE END OF THE PATH
                 if (EntitySummoner.EnemiesInGame[i].nodeIndex >= nodePositions.Length)
                 {
-                    EnqueueEnemyToRemove(EntitySummoner.EnemiesInGame[i]);
+                    // Old: EnqueueEnemyToRemove
+                    EntitySummoner.EnemiesInGame[i].OnReachBase(); // new
                 }
                 
             }
