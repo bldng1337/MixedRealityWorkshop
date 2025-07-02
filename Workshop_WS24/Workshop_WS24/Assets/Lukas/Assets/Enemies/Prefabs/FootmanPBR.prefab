@@ -967,16 +967,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeIndex: 1
-  maxHealth: 2
+  maxHealth: 6
   currentHealth: 0
-  speed: 2
+  speed: 3
   ID: 1
   damageToBase: 10
   attackInterval: 1.5
   weaknesses:
   - type: 0
     multiplier: 1.5
-  - type: 0
+  - type: 2
     multiplier: 1.5
   healthBar: {fileID: 0}
 --- !u!1 &7820630593710178444

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95327276ade31794cb43e8dd63e2fa81, type: 3}
   m_Name: Dragon
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5573735118964094495, guid: 0d1a6af9cd3485248a302fa7eabcfa71,
+  enemyPrefab: {fileID: 4109636339223463008, guid: 6fc607e9ec034694f8b8fccd7e9ba26a,
     type: 3}
   enemyID: 2

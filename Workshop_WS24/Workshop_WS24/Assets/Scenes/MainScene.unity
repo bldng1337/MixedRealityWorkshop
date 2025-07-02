@@ -11509,6 +11509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794db940f0f77334bb8f38e97d426db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waves: []
   nodeParent: {fileID: 1082463055}
   loopEnd: 0
 --- !u!4 &853167764

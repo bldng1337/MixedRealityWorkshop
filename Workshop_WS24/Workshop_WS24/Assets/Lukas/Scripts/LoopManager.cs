@@ -4,16 +4,30 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine.Jobs;
+using Unity.VisualScripting;
+
+[System.Serializable]
+    public class Wave
+    {
+        public List<int> enemyIDs; // each int represents an enemy type
+    }
 
 
 public class LoopManager : MonoBehaviour
 {
+    public List<Wave> waves; // Set up in Inspector
+    private int currentWaveIndex = 0;
+    private bool waveInProgress = false;
     public static Vector3[] nodePositions;
     private static Queue<Enemy> enemiesToRemove;
     private static Queue<int> enemyIDsToSummon;
 
     public Transform nodeParent;
     public bool loopEnd;
+    public GameObject winScreen;
+
+    public int waveThreshold = 5;
+
 
     private void Start()
     {
@@ -29,8 +43,47 @@ public class LoopManager : MonoBehaviour
         }
 
         StartCoroutine(GameLooper());
-        InvokeRepeating("SummonTest", 0f, 3f);
+        
+        if (winScreen != null)
+            winScreen.SetActive(false);
+
     }
+    
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+        StartNextWave();
+    }
+}
+
+    public void StartNextWave()
+    {
+        if (waveInProgress || currentWaveIndex >= waves.Count) return;
+
+        Wave currentWave = waves[currentWaveIndex];
+        StartCoroutine(SpawnWave(currentWave));
+        currentWaveIndex++;
+
+        if (currentWaveIndex >= waveThreshold)
+        {
+            if (winScreen != null)
+                winScreen.SetActive(true);
+        }
+    }
+
+IEnumerator SpawnWave(Wave wave)
+{
+    waveInProgress = true;
+
+    foreach (int id in wave.enemyIDs)
+    {
+        EnqueueEnemyIDToSummon(id);
+        yield return new WaitForSeconds(0.5f); // Delay between spawns
+    }
+
+    waveInProgress = false;
+}
 
     void SummonTest()
     {
@@ -85,7 +138,7 @@ public class LoopManager : MonoBehaviour
                     // Old: EnqueueEnemyToRemove
                     EntitySummoner.EnemiesInGame[i].OnReachBase(); // new
                 }
-                
+
             }
 
             enemySpeeds.Dispose();
@@ -109,7 +162,7 @@ public class LoopManager : MonoBehaviour
             }
             //Remove Towers
 
-            
+
             yield return null;
         }
     }
