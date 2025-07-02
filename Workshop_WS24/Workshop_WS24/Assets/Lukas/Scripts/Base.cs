@@ -9,6 +9,9 @@ public class Base : MonoBehaviour
     public float maxHealth = 100f;
     private float currentHealth;
 
+    [SerializeField] Floating_HealthBar healthBar;
+    Rigidbody2D rb;
+
     void Awake()
     {
         if (Instance != null)
@@ -18,6 +21,9 @@ public class Base : MonoBehaviour
             return;
         }
         Instance = this;
+
+        rb = GetComponent<Rigidbody2D>();
+        healthBar = GetComponentInChildren<Floating_HealthBar>();
     }
 
     void Start()
@@ -29,6 +35,10 @@ public class Base : MonoBehaviour
     {
         currentHealth -= amount;
         Debug.Log($"Base took {amount} damage. Remaining: {currentHealth}");
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
 
         if (currentHealth <= 0f)
         {

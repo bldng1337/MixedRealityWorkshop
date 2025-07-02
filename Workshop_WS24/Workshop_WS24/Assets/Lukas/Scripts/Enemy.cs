@@ -26,7 +26,14 @@ public class Enemy : MonoBehaviour
     private Animator animator;
 
     public List<Weakness> weaknesses = new List<Weakness>();
+    [SerializeField] Floating_HealthBar healthBar;
+    Rigidbody2D rb;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        healthBar = GetComponentInChildren<Floating_HealthBar>();
+    }
     public void Init()
     {
         currentHealth = maxHealth;
@@ -41,6 +48,10 @@ public class Enemy : MonoBehaviour
     {
         float finalDamage = damageType.value * GetWeaknessMultiplier(damageType.type);
         currentHealth -= finalDamage;
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
 
         if (currentHealth <= 0f)
         {
@@ -77,13 +88,24 @@ public class Enemy : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Attack"); // Trigger your attack animation
-            
+
         }
 
         var baseRef = Base.Instance;
         if (baseRef != null)
         {
             baseRef.TakeDamage(damageToBase);
+        }
+        
+        currentHealth -= 1f;
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        }
+
+        if (currentHealth <= 0f)
+        {
+            LoopManager.EnqueueEnemyToRemove(this);
         }
     }
 
