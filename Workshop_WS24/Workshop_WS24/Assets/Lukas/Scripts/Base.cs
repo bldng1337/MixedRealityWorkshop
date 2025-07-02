@@ -31,6 +31,8 @@ public class Base : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        if (looseScreen != null)
+            looseScreen.SetActive(false);
     }
 
     public void TakeDamage(float amount)

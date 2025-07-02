@@ -5,6 +5,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine.Jobs;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 
 [System.Serializable]
     public class Wave
@@ -15,6 +16,28 @@ using Unity.VisualScripting;
 
 public class LoopManager : MonoBehaviour
 {
+    // Vr input
+    public InputActionReference nextWaveAction;
+
+     void OnEnable()
+    {
+        nextWaveAction.action.performed += OnStartWavePressed;
+        nextWaveAction.action.Enable();
+    }
+
+    void OnDisable()
+    {
+        nextWaveAction.action.performed -= OnStartWavePressed;
+        nextWaveAction.action.Disable();
+    }
+
+    void OnStartWavePressed(InputAction.CallbackContext context)
+    {
+        StartNextWave();
+    }
+
+
+
     public List<Wave> waves; // Set up in Inspector
     private int currentWaveIndex = 0;
     private bool waveInProgress = false;
