@@ -48,6 +48,11 @@ public abstract class Energy
         get;
     }
 
+    public abstract String name
+    {
+        get;
+    }
+
     public Energy SplitOff(float amount)
     {
         var newenergy = FromType(this.GetType(), Mathf.Min(amount, value), chaos);
@@ -105,6 +110,8 @@ public class Wood : Energy
     {
     }
 
+    public override String name => "Wood";
+
     public override Color color => Color.green;
 
     public override EnergyType type => EnergyType.Wood;
@@ -129,6 +136,8 @@ public class Earth : Energy
     public Earth(float value, float chaos) : base(value, chaos)
     {
     }
+
+    public override String name => "Earth";
 
     public override Color color => new Color(0.588f,0.294f,0);
 
@@ -155,6 +164,7 @@ public class Magma : Energy
     {
     }
 
+    public override String name => "Magma";
     public override Color color => Color.Lerp(Color.red,Color.black,0.5f);
 
     public override EnergyType type => EnergyType.Fire;
@@ -179,6 +189,8 @@ public class Life : Energy
     public Life(float value, float chaos) : base(value, chaos)
     {
     }
+
+    public override String name => "Life";
 
     public override Color color => Color.yellow;
 
@@ -205,6 +217,8 @@ public class Fire : Energy
     {
     }
 
+    public override String name => "Fire";
+
     public override Color color => Color.red;
 
     public override EnergyType type => EnergyType.Fire;
@@ -230,6 +244,8 @@ public class Water : Energy
     {
     }
 
+    public override String name => "Water";
+
     public override Color color => Color.blue;
 
     public override EnergyType type => EnergyType.Water;
@@ -253,6 +269,8 @@ public class Steam : Energy
     public Steam(float value, float chaos) : base(value, chaos)
     {
     }
+
+    public override String name => "Steam";
 
     public override Color color => new Color(0.6f, 0.6f, 0.9f);
 

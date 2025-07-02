@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ConnectionController : MonoBehaviour
 {
+
+    [SerializeField]
+    public TextMeshPro label;
+
+
     RuneConnection current;
     private XRInputActions inputActions;
 
@@ -30,7 +36,7 @@ public class ConnectionController : MonoBehaviour
         inputActions.CustomRight.Trigger.canceled += Disconnect;
     }
 
-    void Update()
+    void UpdateBeam()
     {
         const float range = 8;
         var dir = transform.rotation * Vector3.forward;
@@ -48,7 +54,7 @@ public class ConnectionController : MonoBehaviour
         dbg.positionCount = 3;
         dbg.SetPosition(0, transform.position);
         RaycastHit hitInfo = new RaycastHit();
-        if(Physics.Raycast(transform.position, dir, out hitInfo, range))
+        if (Physics.Raycast(transform.position, dir, out hitInfo, range))
         {
             dbg.SetPosition(1, hitInfo.point);
         }
@@ -58,6 +64,31 @@ public class ConnectionController : MonoBehaviour
         }
         dbg.SetPosition(2, current.transform.position);
     }
+
+    void Update()
+    {
+        UpdateBeam();
+        if (label == null) return;
+        Debug.Log("Checking");
+        var buffer = LookedAtBuffer();
+        if (buffer != null)
+        {
+            Debug.Log("Got buffer");
+            if (buffer.energy != null)
+            {
+                label.text = "Element: "+ buffer.energy.name+"\nAmount: "+buffer.energy.value+"\nChaos: "+buffer.energy.chaos;
+            }else
+            {
+                label.text = "Empty Connection";
+            }
+        }
+        else
+        {
+            label.text = "";
+        }
+    }
+
+    
 
 
     private void Connect(InputAction.CallbackContext context)
@@ -90,14 +121,39 @@ public class ConnectionController : MonoBehaviour
     {
         const float range = 8;
         var dir = transform.rotation * Vector3.forward;
-        dbg.positionCount = 2;
-        dbg.SetPosition(0, transform.position);
-        dbg.SetPosition(1, transform.position + dir * range);
         RaycastHit hitInfo = new RaycastHit();
         Physics.Raycast(transform.position, dir, out hitInfo, range, 1 << 7);
+        Debug.Log(hitInfo.collider);
         if (hitInfo.collider == null) return null;
         return hitInfo.collider.GetComponent<RuneConnection>();
     }
 
+    EnergyBuffer LookedAtBuffer()
+    {
+        
+        const float range = 8;
+        var dir = transform.rotation * Vector3.forward;
+        RaycastHit hitInfo = new RaycastHit();
+        Physics.Raycast(transform.position, dir, out hitInfo, range, 1 << 7);
+        if (hitInfo.collider == null) return null;
+        var socket = hitInfo.collider.GetComponent<RuneSocket>();
+        if (socket != null && socket.gameObject!=null)
+        {
+            return socket.gameObject.GetComponent<Rune>().mainBuffer;
+        }
+        var conn = hitInfo.collider.GetComponent<RuneConnection>();
+        if (conn != null)
+        {
+            return conn.buffer;
+        }
+        return null;
+        /*var con = LookedAt();
+        Debug.Log(con);
+        if (con!=null)
+        {
+            return con.buffer;
+        }
+        return null;*/
+    }
 
 }
