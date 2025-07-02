@@ -9,6 +9,8 @@ public class Base : MonoBehaviour
     public float maxHealth = 100f;
     private float currentHealth;
 
+    public GameObject looseScreen;
+
     [SerializeField] Floating_HealthBar healthBar;
     Rigidbody2D rb;
 
@@ -48,7 +50,7 @@ public class Base : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Base destroyed! Game Over.");
-        // Add game over logic here
+        if (looseScreen != null)
+                looseScreen.SetActive(true);
     }
 }
