@@ -4,9 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using UnityEngine;
-using static UnityEditor.Rendering.CameraUI;
 using Vector3 = UnityEngine.Vector3;
-
 public class BeamFocus : Rune
 {
     [SerializeField] RuneConnection input;
