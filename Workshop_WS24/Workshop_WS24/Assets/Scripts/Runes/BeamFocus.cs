@@ -53,6 +53,7 @@ public class BeamFocus : Rune
         beam.SetPosition(0, transform.position);
         beam.SetPosition(1, closest.Item1.transform.position + Vector3.up);
         var enemy = closest.Item1;
+        shootenergy.value *= 2;
         enemy.TakeDamage(shootenergy);
     }
 
