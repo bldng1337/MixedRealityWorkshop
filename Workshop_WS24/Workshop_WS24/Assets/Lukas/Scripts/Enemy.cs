@@ -46,7 +46,9 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(Energy damageType)
     {
+        Debug.Log("DAmage");
         float finalDamage = damageType.value * GetWeaknessMultiplier(damageType.type);
+        Debug.Log("Got damage: " + finalDamage);
         currentHealth -= finalDamage;
         if (healthBar != null)
         {

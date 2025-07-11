@@ -3174,6 +3174,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rune Socket (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7582762223706585167, guid: 0b2585117b0af6b409558c72e531065a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582762223706585167, guid: 0b2585117b0af6b409558c72e531065a,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582762223706585167, guid: 0b2585117b0af6b409558c72e531065a,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.72
+      objectReference: {fileID: 0}
     - target: {fileID: 8151978400350344460, guid: 0b2585117b0af6b409558c72e531065a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3182,7 +3197,7 @@ PrefabInstance:
     - target: {fileID: 8151978400350344460, guid: 0b2585117b0af6b409558c72e531065a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.059000015
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8151978400350344460, guid: 0b2585117b0af6b409558c72e531065a,
         type: 3}

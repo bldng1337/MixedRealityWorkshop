@@ -91,6 +91,6 @@ public class RuneController : MonoBehaviour
         dbg.SetPosition(0, transform.position);
         dbg.SetPosition(1, transform.position + dir * range);
         //LookedAt();
-        //Debug.Log(LookedAt());
+        Debug.Log("Looked at: "+LookedAt());
     }
 }

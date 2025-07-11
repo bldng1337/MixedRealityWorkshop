@@ -38,7 +38,7 @@ public class BeamFocus : Rune
         if (mainBuffer.energy == null) return;
         //Debug.Log("Main Buffer: " + mainBuffer.energy.value);
         if (mainBuffer.energy.value <= 0) return;
-        var energy = mainBuffer.SplitOff(Math.Max(mainBuffer.energy.value / 2f, 0.1f));
+        //var energy = mainBuffer.SplitOff(Math.Max(mainBuffer.energy.value / 2f, 0.1f));
         //Debug.Log("Enemies: " + EntitySummoner.EnemiesInGame.Count);
         GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Enemy");
         Debug.Log("These are the Enemies: " + (taggedObjects.Length));
@@ -55,7 +55,7 @@ public class BeamFocus : Rune
         beam.SetPosition(0, transform.position);
         beam.SetPosition(1, closest.Item1.transform.position + Vector3.up);
         var enemy = closest.Item1;
-        shootenergy.value *= 2;
+        shootenergy.value /= 2;
         enemy.TakeDamage(shootenergy);
     }
 
