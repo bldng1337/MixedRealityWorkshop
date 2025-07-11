@@ -16,30 +16,46 @@ using UnityEngine.InputSystem;
 
 public class LoopManager : MonoBehaviour
 {
+
+     public bool waveReady = false;
     // Vr input
     public InputActionReference nextWaveAction;
 
      void OnEnable()
     {
-        nextWaveAction.action.performed += OnStartWavePressed;
-        nextWaveAction.action.Enable();
+        if (nextWaveAction != null)
+        {
+            nextWaveAction.action.performed += OnStartWavePressed;
+            nextWaveAction.action.Enable();
+        }
+        
     }
 
     void OnDisable()
+{
+    if (nextWaveAction != null)
     {
         nextWaveAction.action.performed -= OnStartWavePressed;
         nextWaveAction.action.Disable();
     }
+}
 
     void OnStartWavePressed(InputAction.CallbackContext context)
     {
+        if (!waveReady) return;
         StartNextWave();
     }
 
 
+        public void SetWaveReady(bool ready)
+    {
+        waveReady = ready;
+    }
+
 
     public List<Wave> waves; // Set up in Inspector
     private int currentWaveIndex = 0;
+   
     private bool waveInProgress = false;
     public static Vector3[] nodePositions;
     private static Queue<Enemy> enemiesToRemove;
@@ -74,10 +90,6 @@ public class LoopManager : MonoBehaviour
     
     void Update()
 {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-        StartNextWave();
-    }
 }
 
     public void StartNextWave()

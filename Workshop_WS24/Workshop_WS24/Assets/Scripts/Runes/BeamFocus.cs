@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
-
 public class BeamFocus : Rune
 {
     [SerializeField] RuneConnection input;

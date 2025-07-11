@@ -693,7 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeIndex: 1
-  maxHealth: 12
+  maxHealth: 8
   currentHealth: 0
   speed: 2
   ID: 2
