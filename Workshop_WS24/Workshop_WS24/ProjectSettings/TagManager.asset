@@ -13,6 +13,7 @@ TagManager:
   - CanPlace
   - CantPlace
   - GameManager
+  - Enemy
   layers:
   - Default
   - TransparentFX

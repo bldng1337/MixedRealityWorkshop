@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Rendering.CameraUI;
 using Vector3 = UnityEngine.Vector3;
 
 public class BeamFocus : Rune
@@ -37,14 +37,17 @@ public class BeamFocus : Rune
         mainBuffer.add(input.buffer);
         mainBuffer.ApplyMaterial(material);
         if (mainBuffer.energy == null) return;
-        Debug.Log("Main Buffer: " + mainBuffer.energy.value);
+        //Debug.Log("Main Buffer: " + mainBuffer.energy.value);
         if (mainBuffer.energy.value <= 0) return;
         var energy = mainBuffer.SplitOff(Math.Max(mainBuffer.energy.value / 2f, 0.1f));
         //Debug.Log("Enemies: " + EntitySummoner.EnemiesInGame.Count);
-        var closest = EntitySummoner.EnemiesInGame
+        GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        Debug.Log("These are the Enemies: " + (taggedObjects.Length));
+        var closest = taggedObjects.Select((a) => a.GetComponent<Enemy>())
             .Select((x) => new Tuple<Enemy, float>(x, DistTransform(x.transform)))
             .Aggregate((a, b) => a.Item2 < b.Item2 ? a : b);
-        //Debug.Log("Closest Dist"+closest.Item2);
+        Debug.Log("Closest Dist"+closest.Item2);
+
         if (closest.Item2 > range) return;
         Debug.Log("Shoot");
         var shootenergy=mainBuffer.SplitOff(mainBuffer.energy.value*0.1f);
